@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class practiceStream {
     public static void main(String[] args) {
@@ -15,28 +16,28 @@ public class practiceStream {
 //        //KimLeeKu
         List<Customer> list = new ArrayList<>();
         list.add(new Customer("동현", 25));
-        list.add(new Customer("민지", 21));
+        list.add(new Customer("민지", 32));
+        list.add(new Customer("성만", 23));
+        Customer jung = new Customer("정현", 343);
+        list.add(jung);
+        list.add(jung);
+        list.add(jung);
+        list.add(jung);
+
         // ...
 
 
-        list.stream()
-                .filter(customer ->customer.age>23)
+        Stream<Customer> stream = list.parallelStream();
+        stream.filter(c->c.getAge()>23)
                 .sorted()
                 .map(Customer::getName)
-                .collect(Collectors.toList())
-                .forEach(name -> System.out.println(name));
-    }
-}
-class Customer {
-    String name;
-    int age;
+                .forEach(System.out::println);
+        System.out.println("---");
+//        stream.filter(c->c.getAge()>23)
+//                .distinct()
+//                .forEach(c-> System.out.println(c.getName()));
 
-    public Customer(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+        Stream.Builder<Customer> builder = Stream.builder();
 
-    public String getName() {
-        return this.name;
     }
 }
